@@ -12,72 +12,7 @@ use DB;
 class TransactionController extends Controller
 {
 
-    /**
-     * @OA\Post(
-     *     path="/api/transactions",
-     *     summary="Create a new transaction",
-     *     description="Store a credit or debit transaction for an authenticated user's account.",
-     *     tags={"Transactions"},
-     *     security={{"bearerAuth":{}}},
-     * 
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\JsonContent(
-     *             required={"account_number", "type", "amount"},
-     *             @OA\Property(property="account_number", type="string", example="123456789012"),
-     *             @OA\Property(property="type", type="string", enum={"Credit", "Debit"}, example="Credit"),
-     *             @OA\Property(property="amount", type="number", format="float", example=100.50),
-     *             @OA\Property(property="description", type="string", example="Salary Deposit")
-     *         )
-     *     ),
-     * 
-     *     @OA\Response(
-     *         response=201,
-     *         description="Transaction successful",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="Transaction successful"),
-     *             @OA\Property(property="transaction", type="object",
-     *                 @OA\Property(property="id", type="integer", example=1),
-     *                 @OA\Property(property="account_id", type="integer", example=101),
-     *                 @OA\Property(property="type", type="string", example="Credit"),
-     *                 @OA\Property(property="amount", type="number", format="float", example=100.50),
-     *                 @OA\Property(property="description", type="string", example="Salary Deposit")
-     *             ),
-     *             @OA\Property(property="account", type="object",
-     *                 @OA\Property(property="id", type="integer", example=101),
-     *                 @OA\Property(property="balance", type="number", format="float", example=1500.75)
-     *             )
-     *         )
-     *     ),
-     * 
-     *     @OA\Response(
-     *         response=403,
-     *         description="Unauthorized access",
-     *         @OA\JsonContent(@OA\Property(property="message", type="string", example="Unauthorized access to account"))
-     *     ),
-     * 
-     *     @OA\Response(
-     *         response=400,
-     *         description="Insufficient balance for debit transaction",
-     *         @OA\JsonContent(@OA\Property(property="message", type="string", example="Insufficient balance"))
-     *     ),
-     * 
-     *     @OA\Response(
-     *         response=422,
-     *         description="Validation error",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="Validation error"),
-     *             @OA\Property(property="errors", type="object")
-     *         )
-     *     ),
-     * 
-     *     @OA\Response(
-     *         response=500,
-     *         description="Unexpected server error",
-     *         @OA\JsonContent(@OA\Property(property="message", type="string", example="An unexpected error occurred"))
-     *     )
-     * )
-     */
+    // Transaction Details Store Base on Account
     public function store(Request $request)
     {
         try {
@@ -161,90 +96,8 @@ class TransactionController extends Controller
         }
     }
 
-/**
- * @OA\Get(
- *     path="/api/transactions",
- *     summary="Retrieve account transactions",
- *     description="Fetches transactions for a given account number with optional date range and pagination.",
- *     tags={"Transactions"},
- *     security={{"bearerAuth":{}}}, 
- *     @OA\Parameter(
- *         name="account_number",
- *         in="query",
- *         required=true,
- *         description="The account number to fetch transactions for",
- *         @OA\Schema(type="string")
- *     ),
- *     @OA\Parameter(
- *         name="from",
- *         in="query",
- *         required=false,
- *         description="Start date for filtering transactions (YYYY-MM-DD)",
- *         @OA\Schema(type="string", format="date")
- *     ),
- *     @OA\Parameter(
- *         name="to",
- *         in="query",
- *         required=false,
- *         description="End date for filtering transactions (YYYY-MM-DD)",
- *         @OA\Schema(type="string", format="date")
- *     ),
- *     @OA\Parameter(
- *         name="per_page",
- *         in="query",
- *         required=false,
- *         description="Number of transactions per page (default: all transactions)",
- *         @OA\Schema(type="integer", minimum=1, maximum=100)
- *     ),
- *     @OA\Response(
- *         response=200,
- *         description="Successful response",
- *         @OA\JsonContent(
- *             type="object",
- *             @OA\Property(property="message", type="string", example="Transactions retrieved successfully"),
- *             @OA\Property(
- *                 property="transactions",
- *                 type="array",
- *                 @OA\Items(
- *                     type="object",
- *                     @OA\Property(property="id", type="integer", example=1),
- *                     @OA\Property(property="account_id", type="integer", example=10),
- *                     @OA\Property(property="type", type="string", example="Credit"),
- *                     @OA\Property(property="amount", type="number", format="float", example=100.50),
- *                     @OA\Property(property="description", type="string", example="Payment received"),
- *                     @OA\Property(property="created_at", type="string", format="date-time", example="2024-03-28T14:30:00Z")
- *                 )
- *             )
- *         )
- *     ),
- *     @OA\Response(
- *         response=403,
- *         description="Unauthorized access",
- *         @OA\JsonContent(
- *             type="object",
- *             @OA\Property(property="message", type="string", example="Unauthorized access to account")
- *         )
- *     ),
- *     @OA\Response(
- *         response=422,
- *         description="Validation error",
- *         @OA\JsonContent(
- *             type="object",
- *             @OA\Property(property="message", type="string", example="Validation error"),
- *             @OA\Property(property="errors", type="object")
- *         )
- *     ),
- *     @OA\Response(
- *         response=500,
- *         description="Unexpected error",
- *         @OA\JsonContent(
- *             type="object",
- *             @OA\Property(property="message", type="string", example="An unexpected error occurred"),
- *             @OA\Property(property="error", type="string")
- *         )
- *     )
- * )
- */ public function index(Request $request)
+    // Transaction Details Get Base On Account
+    public function index(Request $request)
     {
         
         try {
@@ -296,5 +149,4 @@ class TransactionController extends Controller
         }
     }
 
-    
 }
