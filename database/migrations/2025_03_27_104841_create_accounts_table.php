@@ -12,7 +12,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('accounts', function (Blueprint $table) {
-            $table->id(); // Integer id
+            $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('account_name')->unique();
             $table->string('account_number')->unique();
@@ -21,6 +21,7 @@ return new class extends Migration
             $table->decimal('balance', 15, 2)->default(0.00);
             $table->softDeletes();
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
     }
 
