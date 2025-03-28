@@ -36,9 +36,7 @@ composer update
 ```bash
 php artisan migrate
 ```
-If DataBase Not Migrate Proper 
-Upload Database manualy 
-account_management.sql
+🔹 If the database does not migrate properly, upload the database manually using `account_management.sql`.
 
 ### 5️⃣ Serve the Application
 ```bash
